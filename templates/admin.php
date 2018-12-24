@@ -12,11 +12,11 @@
             </div>
             <div class="postbox-container" id="postbox-container-1">
                 <div id="add_city" class="postbox metabox-holder" style="padding: 0">
-                    <h2 class="hndle">Добавить город</h2>
+                    <h2 class="hndle">Добавить регион</h2>
                     <div class="inside">
                         <div class="main">
                             <input type="hidden" id="city_nonce" name="nonce" value="<?php echo wp_create_nonce('add_city') ?>">
-                            <input type="text" id="city_name" name="post_title" placeholder="Название города" required />
+                            <input type="text" id="city_name" name="post_title" placeholder="Название региона" required />
                             <button type="button" id="add_btn" class="button btn-primary">Добавить</button>
                         </div>
                     </div>
@@ -68,7 +68,7 @@
         remove.click(function (event) {
             event.preventDefault();
 
-            if(confirm('Вы точно хотите удалить город?')) {
+            if(confirm('Вы точно хотите удалить регион?')) {
                 $.ajax({
                     type: 'post',
                     url: ajaxurl,

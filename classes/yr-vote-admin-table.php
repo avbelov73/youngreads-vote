@@ -5,56 +5,6 @@
     }
 
     class TT_Example_List_Table extends WP_List_Table {
-//        var $example_data = array(
-//            array(
-//                'ID'        => 1,
-//                'title'     => '300',
-//                'rating'    => 'R',
-//                'director'  => 'Zach Snyder'
-//            ),
-//            array(
-//                'ID'        => 2,
-//                'title'     => 'Eyes Wide Shut',
-//                'rating'    => 'R',
-//                'director'  => 'Stanley Kubrick'
-//            ),
-//            array(
-//                'ID'        => 3,
-//                'title'     => 'Moulin Rouge!',
-//                'rating'    => 'PG-13',
-//                'director'  => 'Baz Luhrman'
-//            ),
-//            array(
-//                'ID'        => 4,
-//                'title'     => 'Snow White',
-//                'rating'    => 'G',
-//                'director'  => 'Walt Disney'
-//            ),
-//            array(
-//                'ID'        => 5,
-//                'title'     => 'Super 8',
-//                'rating'    => 'PG-13',
-//                'director'  => 'JJ Abrams'
-//            ),
-//            array(
-//                'ID'        => 6,
-//                'title'     => 'The Fountain',
-//                'rating'    => 'PG-13',
-//                'director'  => 'Darren Aronofsky'
-//            ),
-//            array(
-//                'ID'        => 7,
-//                'title'     => 'Watchmen',
-//                'rating'    => 'R',
-//                'director'  => 'Zach Snyder'
-//            ),
-//            array(
-//                'ID'        => 8,
-//                'title'     => '2001',
-//                'rating'    => 'G',
-//                'director'  => 'Stanley Kubrick'
-//            ),
-//        );
 
         var $data = [];
 
@@ -66,15 +16,16 @@
             parent::__construct( array(
 
 
-                'singular'  => 'город',     //singular name of the listed records
-                'plural'    => 'города',    //plural name of the listed records
+                'singular'  => 'регион',     //singular name of the listed records
+                'plural'    => 'региона',    //plural name of the listed records
                 'ajax'      => true        //does this table support ajax?
 
             ) );
 
             $args = [
                 'post_type' => 'city',
-                'meta_key' => '_vote',
+                'posts_per_page' => -1,
+                'meta_key' => 'vote',
                 'orderby' => 'meta_value_num',
                 'order' => 'DESC'
             ];
@@ -87,13 +38,11 @@
                     $item = [
                         'ID' => get_the_ID(),
                         'title' => get_the_title(),
-                        'vote' => get_post_meta(get_the_ID(), '_vote', true)
+                        'vote' => get_post_meta(get_the_ID(), 'vote', true)
                     ];
                     array_push($this->data, $item);
                 }
             }
-//            var_dump($this->data);
-//            die();
 	    }
 
 	    function column_default($item, $column_name){
@@ -162,7 +111,7 @@
 	    function prepare_items() {
 	        global $wpdb; //This is used only if making any database queries
 
-            $per_page = 5;
+            $per_page = 15;
             $columns = $this->get_columns();
             $hidden = [];
             $sortable = $this->get_sortable_columns();

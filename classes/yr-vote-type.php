@@ -30,8 +30,13 @@ class YR_Vote_Type
             'labels' => $labels,
             'public' => true,
             'show_ui' => false, // показывать интерфейс в админке
+            'show_in_rest'       => true,
+            'rest_base'          => 'city',
+            'rest_controller_class' => 'WP_REST_Posts_Controller',
             'supports' => ['title', 'custom-fields']
         );
         register_post_type('city', $args);
     }
+
+
 }

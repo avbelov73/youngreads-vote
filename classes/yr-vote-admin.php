@@ -6,7 +6,7 @@ class YR_Vote_Admin {
 
     public function __construct()
     {
-        add_menu_page( 'Рейтинг городов', 'Рейтинг городов', 'edit_others_posts', 'vote-rate', [$this, 'render_page']);
+        add_menu_page( 'Рейтинг регионов', 'Рейтинг регионов', 'edit_others_posts', 'vote-rate', [$this, 'render_page']);
         add_action('wp_ajax_add_city_ajax', [$this, 'add_city']);
         add_action('wp_ajax_update_vote_ajax', [$this, 'update_vote']);
         add_action('wp_ajax_remove_city_ajax', [$this, 'remove_city']);
@@ -29,7 +29,7 @@ class YR_Vote_Admin {
 
         $title = strip_tags($_POST['post_title']);
 
-        if (!$title) $errors .= 'Не заполнено поле "Название города"';
+        if (!$title) $errors .= 'Не заполнено поле "Название региона"';
 
         if (!$errors) {
             $fields = [
@@ -42,7 +42,7 @@ class YR_Vote_Admin {
             $post_id = wp_insert_post($fields);
         }
 
-        add_post_meta($post_id, '_vote', 0);
+        add_post_meta($post_id, 'vote', 0);
 
         if ($errors)
             wp_send_json_error($errors);
@@ -57,13 +57,14 @@ class YR_Vote_Admin {
         $post_id = (int) $_POST['post_id'];
         $vote = (int) $_POST['vote'];
 
-        update_post_meta($post_id, '_vote', $vote);
+        update_post_meta($post_id, 'vote', $vote);
     }
 
     function remove_city()
     {
         $post_id = (int) $_POST['post_id'];
         $deleted = wp_delete_post($post_id);
-
     }
+
+
 }
